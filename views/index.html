@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ajax</title>
+    </head>
+    <body>
+        <div>
+            <form action="/todos" method="post">
+                <input type="text" name="content">
+                <input type="submit">
+            </form>
+        </div>
+        <button class="ajax_send">send</button>
+        <p class="result">result</p>
+        <p class="result">result</p>
+
+        <script>
+            document.getElementsByClassName("ajax_send")[0].addEventListener('click',function(){
+                let input=document.forms[0].elements[0].value;
+                const url="http://localhost:3000/ajax_send";
+
+                sendAjax(url,input);
+            })
+            function sendAjax(url,input){
+                let xhr_obj={"content":input};
+                let xhr_str=JSON.stringify(xhr_obj);
+                let xhr=new XMLHttpRequest();
+                xhr.open("post",url,true);
+                xhr.setRequestHeader('content-type','application/json');
+                xhr.send(xhr_str);
+
+                xhr.addEventListener('load',function(){
+                    let result=JSON.parse(xhr.responseText);
+                    document.getElementsByClassName("result")[0].innerHTML=document.getElementsByClassName("result")[0].innerHTML+result.content;
+                });
+            };
+        </script>
+    </body>
+</html>

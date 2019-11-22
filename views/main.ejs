@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ajax</title>
+    </head>
+    <body>
+        <div>
+            <form action="/todos" method="post">
+                <input type="text" name="content">
+                <input type="submit">
+            </form>
+        </div>
+        <div>
+            <% todos.forEach((e)=>{ %>
+                <p><%= e.content %></p>
+                <form action="/todos/<%=e.id%>" method="post">
+                    <input type="hidden" name="_method" value="put">
+                    <input type="text" name="content">
+                    <input type="submit">
+                </form>
+                <form action="/todos/<%=e.id%>" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="submit">
+                </form>
+            <% })%>
+        </div>
+        
+
+    </body>
+</html>
